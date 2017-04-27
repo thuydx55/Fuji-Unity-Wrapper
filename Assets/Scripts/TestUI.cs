@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+
+#if UNITY_ANDROID
 using Fuji;
+#endif
 
 public class TestUI : MonoBehaviour {
 	
     public void onLoginClicked() {
+        #if UNITY_ANDROID
         FujiSDK.Instance.Login();
 
         FujiSDK.Instance.EventLoginSucceed += onLoggedInSucceed;
         FujiSDK.Instance.EventLoginFailed += onLoggedInFailed;
         FujiSDK.Instance.EventLoginCancelled += onLoggedInCancelled;
+        #endif
     }	
 
     private void onLoggedInSucceed() {
@@ -28,21 +33,28 @@ public class TestUI : MonoBehaviour {
     }
 
     private void removeLoginEvent() {
+        #if UNITY_ANDROID
         FujiSDK.Instance.EventLoginSucceed -= onLoggedInSucceed;
         FujiSDK.Instance.EventLoginFailed -= onLoggedInFailed;
         FujiSDK.Instance.EventLoginCancelled -= onLoggedInCancelled;
+        #endif
     }
 
     public void onLogoutClicked() {
+        #if UNITY_ANDROID
         FujiSDK.Instance.Logout();
+        #endif
     }
 
     public void onShowUserInfoClicked() {
+        #if UNITY_ANDROID
         FujiSDK.Instance.ShowUserInfo();
+        #endif
     }
 
+    #if UNITY_ANDROID
     public void onTransferClicked() {
-        FujiSDK.Instance.TransferCoin("jp.co.alphapolis.games.remon.5");
+        FujiSDK.Instance.TransferCoin("vn.fujigame.remonster.6");
 
         FujiSDK.Instance.EventTransferSucceed += onTransferSucceed;
         FujiSDK.Instance.EventTransferFailed += onTransferFailed;
@@ -55,7 +67,7 @@ public class TestUI : MonoBehaviour {
     }
 
     private void onTransferFailed(string msg) {
-        Debug.Log("onTransferFailed");
+        Debug.Log("onTransferFailed: " + msg);
         removeTransferEvent();
     }
 
@@ -69,4 +81,5 @@ public class TestUI : MonoBehaviour {
         FujiSDK.Instance.EventTransferFailed -= onTransferFailed;
         FujiSDK.Instance.EventTransferCancelled -= onTransferCancelled;
     }
+    #endif
 }

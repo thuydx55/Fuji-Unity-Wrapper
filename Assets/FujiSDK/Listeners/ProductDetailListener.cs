@@ -12,7 +12,7 @@ namespace Fuji {
             this.eventSucceed = eventSucceed;
             this.eventFailed = eventFailed;
         }
-        void onLoginSucceed(AndroidJavaObject obj)
+        void onGetProductDetailSucceed(AndroidJavaObject obj)
         {
             if (eventSucceed != null) {
                 var products = new List<string>();
@@ -24,7 +24,7 @@ namespace Fuji {
                 eventSucceed.Invoke(products);
             }
         }
-        void onLoginFailed(string msg) {
+        void onGetProductDetailFailed(string msg) {
             if (eventFailed != null)
                 eventFailed.Invoke(msg);
         }
